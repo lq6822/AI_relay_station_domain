@@ -1,0 +1,10 @@
+.venv/
+.tools/
+.uv-cache/
+__pycache__/
+*.pyc
+dist/
+*.egg-info/
+.env
+runs/
+data/inputs/

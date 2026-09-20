@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-relay-intel"
+version = "0.1.0"
+description = "Evidence-led, single-agent AI relay domain intelligence CLI"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "anthropic>=0.120,<2",
+  "pydantic>=2.13,<3",
+  "idna>=3.11,<4",
+  "tldextract>=5.3,<6",
+]
+
+[project.scripts]
+relay-intel = "relay_intel.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/relay_intel"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "config", "tests", "README.md", "pyproject.toml", "uv.lock"]
