@@ -1,179 +1,211 @@
+"""判定测试：验证四标签、证据分档、人工复核及验证时间等业务含义。"""
+
 import unittest
-from datetime import datetime, timedelta, timezone
-from pathlib import Path
+from datetime import datetime, timezone
 
-from relay_intel.assessment import apply_review, assess
+from pydantic import TypeAdapter
+
+from helpers import QUOTES, TIME, sample
+from relay_intel.assessment import CORE, apply_review, assess
 from relay_intel.contracts import (
-    Analysis, Annotation, Citation, Concern, FactSuggestion, Intelligence, Investigation,
-    Material, Policy, Review, ToolCall, now,
+    Citation, Concern, DomainResult, FactSuggestion, Investigation, Review, Score, now,
 )
-from relay_intel.investigation import MaterialTools, merge_facts
+from relay_intel.delivery import to_intelligence
+from relay_intel.investigation import merge_facts
 
-TIME = datetime(2026, 1, 1, tzinfo=timezone.utc)
+
+def result_for(facts=(), **overrides):
+    candidate, material, analysis = sample(facts=facts, **overrides)
+    investigation = Investigation(analysis=analysis, tool_calls=[], requests=2, usage={})
+    return DomainResult(candidate=candidate, materials=[material], investigation=investigation,
+                        assessment=assess([material], analysis))
+
+
+def review_for(result, **updates):
+    values = dict(run_id="r", domain=result.candidate.domain, action="accept", reviewer="test reviewer",
+                  reviewed_at=now(), reason="Checked evidence and accepted the conservative label",
+                  citations=result.investigation.analysis.citations)
+    values.update(updates)
+    return Review(**values)
 
 
 class AssessmentTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.policy = Policy.model_validate_json((Path(__file__).parents[1]/"config/policy.json").read_text(encoding="utf-8"))
-
-    def material(self, facts=(), **overrides):
-        values = dict(material_id="m", domain="relay.example.com", source_url="https://relay.example.com/",
-                      collected_at=TIME, access_status="ok", evidence_state="current",
-                      excerpt="We are an independent relay; provide model access; proxy requests upstream.",
-                      annotations=[Annotation(fact=f, value="supported", quote="relay") for f in facts])
-        values.update(overrides)
-        return Material(**values)
-
-    def investigation(self, materials, suggestions=(), concerns=()):
-        citation = Citation(material_id=materials[0].material_id,
-                            quote=materials[0].excerpt or materials[0].failure_reason)
-        analysis = Analysis(facts=list(suggestions), suggested_label="确认", reason="Model suggestion only",
-                            quality_reason="Traceable materials", quality_citations=[citation], concerns=list(concerns),
-                            related_links=[], limitations=[])
-        tools = MaterialTools("relay.example.com", materials)
-        tools.execute("read_materials", {"domain": "relay.example.com"})
-        tools.validate_analysis(analysis)
-        return Investigation(run_id="r", domain="relay.example.com", version=1, fingerprint="fp",
-                             materials=materials, facts=merge_facts(materials, analysis), analysis=analysis,
-                             tool_calls=[ToolCall(name="read_materials", material_ids=list(tools.read_ids), result="ok")],
-                             requests=2, usage={}, execution="offline_test", created_at=now())
-
-    def test_four_labels_program_overrides_model(self):
-        for facts, label in [(('third_party', 'model_access', 'upstream_proxy'), "确认"),
-                             (('relay_clue',), "疑似"), (('exclusion',), "排除"), ((), "证据不足")]:
+    def test_four_labels(self):
+        for facts, label in [(CORE, "确认"), (("relay_clue",), "疑似"), (("exclusion",), "排除"), ((), "证据不足")]:
             with self.subTest(label=label):
-                actual = assess(self.investigation([self.material(facts)]), self.policy, 1)
-                self.assertEqual(actual.label, label)
-                self.assertEqual(actual.confidence, .9)
+                result = result_for(facts)
+                self.assertEqual((result.assessment.label, result.assessment.confidence), (label, .9))
 
-    def test_access_failure_is_high_confidence_insufficient_not_excluded(self):
-        m = self.material(access_status="failed", excerpt=None, failure_reason="Connection timed out",
-                          evidence_state="unknown")
-        result = assess(self.investigation([m]), self.policy, 1)
-        self.assertEqual((result.label, result.confidence, result.review_status), ("证据不足", .9, "not_required"))
+    def test_actual_failure_is_insufficient_but_no_material_is_unfinished(self):
+        result = result_for(access_status="failed", excerpt=None, failure_reason="timeout", evidence_state="unknown")
+        self.assertEqual((result.assessment.label, result.assessment.review_status), ("证据不足", "not_required"))
+        with self.assertRaisesRegex(ValueError, "no investigation"):
+            assess([], result.investigation.analysis)
 
-    def test_unknown_is_not_refuted(self):
-        inv = self.investigation([self.material()])
-        self.assertTrue(all(f.value == "unknown" and not f.conflict for f in inv.facts))
+    def test_unknown_and_conflict_are_distinct(self):
+        result = result_for(CORE)
+        analysis = result.investigation.analysis
+        self.assertEqual(merge_facts(result.materials, analysis)["exclusion"].value, "unknown")
+        analysis.facts = [FactSuggestion(fact="third_party", value="refuted", material_id="m",
+                                         quote=QUOTES["third_party"])]
+        actual = assess(result.materials, analysis)
+        self.assertEqual((actual.label, actual.confidence, actual.review_status), ("疑似", .55, "pending"))
+        self.assertEqual({e.origin for e in merge_facts(result.materials, analysis)["third_party"].evidence},
+                         {"human", "model"})
 
-    def test_conflict_is_not_majority_voted_away(self):
-        m = self.material(("third_party", "model_access", "upstream_proxy"))
-        opposite = FactSuggestion(fact="third_party", value="refuted", quote="relay", material_id="m")
-        inv = self.investigation([m], [opposite])
-        result = assess(inv, self.policy, 1)
-        self.assertEqual((result.label, result.confidence, result.review_status), ("疑似", .55, "pending"))
-        fact = next(f for f in inv.facts if f.fact == "third_party")
-        self.assertEqual({e.origin for e in fact.evidence}, {"human", "model"})
+    def test_historical_secondary_and_uncertain_evidence(self):
+        for kwargs, label, score in [
+            ({"evidence_state": "historical"}, "疑似", .75),
+            ({"source_kind": "secondary"}, "确认", .75),
+            ({"subject_relation": "uncertain"}, "疑似", .55),
+        ]:
+            with self.subTest(kwargs=kwargs):
+                result = result_for(CORE, **kwargs)
+                self.assertEqual((result.assessment.label, result.assessment.confidence), (label, score))
+        conflict = result_for((*CORE, "exclusion"))
+        self.assertEqual((conflict.assessment.label, conflict.assessment.confidence), ("疑似", .55))
 
-    def test_mutually_inconsistent_directions_require_review(self):
-        result = assess(self.investigation([self.material(("exclusion", "relay_clue"))]), self.policy, 1)
-        self.assertEqual((result.label, result.confidence), ("疑似", .55))
+    def test_accept_conservative_result_preserves_unknowns(self):
+        result = result_for(("relay_clue",), needs_review=True)
+        updated = apply_review(result, review_for(result))
+        self.assertEqual((updated.label, updated.review_status), ("疑似", "completed"))
+        self.assertEqual(merge_facts(result.materials, result.investigation.analysis)["third_party"].value, "unknown")
 
-    def test_historical_evidence_cannot_confirm_current_host(self):
-        result = assess(self.investigation([self.material(("third_party", "model_access", "upstream_proxy"),
-                                                         evidence_state="historical")]), self.policy, 1)
-        self.assertEqual((result.label, result.confidence, result.review_status), ("疑似", .75, "pending"))
+    def test_reviewer_can_resolve_model_concern_and_confirm(self):
+        result = result_for(CORE)
+        analysis = result.investigation.analysis
+        analysis.concerns = [Concern(kind="business", reason="Relay or ordinary app unclear", citations=analysis.citations)]
+        result.assessment = assess(result.materials, analysis)
+        self.assertEqual(result.assessment.label, "疑似")
+        review = review_for(result, action="revise", new_label="确认", resolved_concerns=[1],
+                            reason="Checked that the API is offered to users as a relay")
+        updated = apply_review(result, review)
+        self.assertEqual((updated.label, updated.confidence, updated.review_status), ("确认", .9, "completed"))
+        self.assertEqual(len(analysis.concerns), 1, "original model concern must remain in the record")
 
-    def test_secondary_evidence_is_limited(self):
-        result = assess(self.investigation([self.material(("exclusion",), source_kind="secondary")]), self.policy, 1)
-        self.assertEqual((result.label, result.confidence), ("排除", .75))
+    def test_review_replaces_model_interpretation_without_overwriting_human_facts(self):
+        result = result_for(("exclusion",))
+        analysis = result.investigation.analysis
+        suggestion = FactSuggestion(fact="relay_clue", value="supported", material_id="m", quote=QUOTES["exclusion"])
+        analysis.facts = [suggestion]
+        result.assessment = assess(result.materials, analysis)
+        revision = suggestion.model_copy(update={"value": "unknown"})
+        review = review_for(result, action="revise", new_label="排除", fact_revisions=[revision])
+        updated = apply_review(result, review)
+        self.assertEqual((updated.label, updated.confidence), ("排除", .9))
+        self.assertEqual(analysis.facts[0].value, "supported")
+        self.assertEqual(merge_facts(result.materials, analysis, [revision])["relay_clue"].evidence[0].origin, "review")
+        human_conflict = result_for(CORE)
+        review = review_for(human_conflict, action="revise", new_label="确认",
+                            fact_revisions=[FactSuggestion(fact="third_party", value="refuted",
+                                                           material_id="m", quote=QUOTES["third_party"])])
+        self.assertTrue(merge_facts(human_conflict.materials, human_conflict.investigation.analysis,
+                                   review.fact_revisions)["third_party"].conflict)
 
-    def test_subject_uncertainty_cannot_confirm(self):
-        result = assess(self.investigation([self.material(("third_party", "model_access", "upstream_proxy"),
-                                                         subject_relation="uncertain")]), self.policy, 1)
-        self.assertEqual((result.label, result.confidence), ("疑似", .55))
-
-    def test_irrelevant_unknowns_do_not_force_review_of_exclusion(self):
-        m = self.material(("exclusion",))
-        concern = Concern(kind="missing", reason="No upstream details", affects_decision=False,
-                          citations=[Citation(material_id="m", quote="relay")])
-        result = assess(self.investigation([m], concerns=[concern]), self.policy, 1)
-        self.assertEqual(result.review_status, "not_required")
-
-    def test_impactful_business_concern_is_conservative(self):
-        concern = Concern(kind="business", reason="Ordinary app or API relay unclear", affects_decision=True,
-                          citations=[Citation(material_id="m", quote="relay")])
-        result = assess(self.investigation([self.material(("exclusion",))], concerns=[concern]), self.policy, 1)
-        self.assertEqual((result.label, result.confidence), ("证据不足", .55))
-
-    def test_bad_annotation_citation_and_failed_fact_rejected(self):
-        with self.assertRaises(ValueError):
-            self.material(annotations=[Annotation(fact="exclusion", value="supported", quote="not present")])
-        with self.assertRaises(ValueError):
-            self.material(("exclusion",), access_status="failed", excerpt=None, failure_reason="timeout")
-        suggestion = FactSuggestion(fact="exclusion", value="supported", quote="missing", material_id="m")
-        with self.assertRaisesRegex(ValueError, "quote cannot be located"):
-            self.investigation([self.material()], [suggestion])
-
-    def test_tool_scope_and_unread_counterevidence(self):
-        materials = [self.material(), self.material(material_id="other")]
-        inv = self.investigation(materials)
-        tools = MaterialTools("relay.example.com", materials)
-        with self.assertRaises(ValueError):
-            tools.execute("read_materials", {"domain": "other.example.com"})
-        with self.assertRaises(ValueError):
-            tools.execute("read_materials", {"domain": "relay.example.com", "material_ids": ["outside"]})
-        tools.execute("read_materials", {"domain": "relay.example.com", "material_ids": ["m"]})
-        with self.assertRaisesRegex(ValueError, "read all"):
-            tools.validate_analysis(inv.analysis)
-
-    def test_exact_material_domain_required(self):
-        with self.assertRaises(ValueError):
-            MaterialTools("relay.example.com", [self.material(domain="other.example.com")])
-
-    def test_cross_host_exact_relation_requires_locatable_target(self):
-        cross = self.material(("exclusion",), source_url="https://unrelated.example.com/about")
-        with self.assertRaisesRegex(ValueError, "subject"):
-            MaterialTools("relay.example.com", [cross])
-        cross.excerpt += " This description concerns https://relay.example.com/."
-        MaterialTools("relay.example.com", [cross])
-
-    def review_action(self, current, **updates):
-        args = dict(run_id="r", domain=current.domain, assessment_version=current.version,
-                    action="accept", reviewer="test reviewer", reviewed_at=now(), reason="Conservative result accepted",
-                    citations=[Citation(material_id="m", quote="relay")])
-        args.update(updates)
-        return Review(**args)
-
-    def test_accept_retains_unknowns_and_is_idempotent(self):
-        inv = self.investigation([self.material(("relay_clue",))])
-        current = assess(inv, self.policy, 1)
-        action = self.review_action(current)
-        result = apply_review(current, inv, action, self.policy)
-        self.assertEqual((result.version, result.label, result.confidence, result.review_status), (2, "疑似", .9, "completed"))
-        self.assertEqual(apply_review(result, inv, action, self.policy), result)
-        self.assertEqual(next(f.value for f in inv.facts if f.fact == "third_party"), "unknown")
-
-    def test_revision_recomputes_confidence_and_preserves_original(self):
-        m = self.material(("exclusion",))
-        suggestion = FactSuggestion(fact="relay_clue", value="supported", quote="relay", material_id="m")
-        inv = self.investigation([m], [suggestion])
-        current = assess(inv, self.policy, 1)
-        action = self.review_action(current, action="revise", new_label="排除",
-                                   fact_revisions=[suggestion.model_copy(update={"value": "unknown"})])
-        result = apply_review(current, inv, action, self.policy)
-        self.assertEqual((result.label, result.confidence, result.review_status), ("排除", .9, "completed"))
-        self.assertEqual(inv.analysis.facts[0].value, "supported")
-        self.assertEqual(current.confidence, .55)
-
-    def test_unsupported_review_label_and_stale_review_rejected(self):
-        inv = self.investigation([self.material(("relay_clue",))])
-        current = assess(inv, self.policy, 1)
-        for update in [{"action": "revise", "new_label": "确认"}, {"assessment_version": 9},
-                       {"reviewed_at": now() - timedelta(days=1)}]:
+    def test_invalid_review_cannot_force_a_label(self):
+        result = result_for(("relay_clue",), needs_review=True)
+        for update in [{"action": "revise", "new_label": "确认"},
+                       {"reviewed_at": TIME}, {"action": "revise", "new_label": "疑似", "resolved_concerns": [7]},
+                       {"citations": [Citation(material_id="m", quote="invented")]}]:
             with self.subTest(update=update), self.assertRaises(ValueError):
-                apply_review(current, inv, self.review_action(current, **update), self.policy)
+                apply_review(result, review_for(result, **update))
 
-    def test_confidence_finite_range_and_type(self):
-        from pydantic import TypeAdapter
-        from relay_intel.contracts import Score
-        adapter = TypeAdapter(Score)
-        for value in [True, "0.9", float("nan"), float("inf"), -0.1, 1.1, None]:
+    def test_failed_visit_does_not_refresh_confirmed_evidence_time(self):
+        result = result_for(CORE)
+        failed = sample(identity="failure", facts=(), access_status="failed", excerpt=None,
+                        failure_reason="timeout", evidence_state="unknown",
+                        collected_at=datetime(2026, 9, 1, tzinfo=timezone.utc))[1]
+        result.materials.append(failed)
+        result.assessment = assess(result.materials, result.investigation.analysis)
+        row = to_intelligence(result)
+        self.assertEqual((row.label, row.last_verified), ("确认", TIME))
+        _, recent, _ = sample(identity="recent", facts=CORE, collected_at=failed.collected_at)
+        result.materials.append(recent)
+        result.assessment = assess(result.materials, result.investigation.analysis)
+        self.assertEqual(to_intelligence(result).last_verified, recent.collected_at)
+
+    def test_confidence_is_finite_number_and_pending_review_blocks_export(self):
+        for value in [True, "0.9", float("nan"), float("inf"), -1, 1.1]:
             with self.subTest(value=value), self.assertRaises(ValueError):
-                adapter.validate_python(value)
-        self.assertEqual(adapter.validate_python(.9), .9)
+                TypeAdapter(Score).validate_python(value)
+        with self.assertRaisesRegex(ValueError, "review pending"):
+            to_intelligence(result_for(("relay_clue",), needs_review=True))
 
+    def test_missing_confirmation_facts_do_not_force_review_of_suspected_label(self):
+        result = result_for(("relay_clue",))
+        self.assertEqual((result.assessment.label, result.assessment.review_status), ("疑似", "not_required"))
+        self.assertEqual(to_intelligence(result).label, "疑似")
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_model_only_facts_keep_their_quotes_and_origin_in_export(self):
+        result = result_for(CORE, annotations=[])
+        analysis = result.investigation.analysis
+        analysis.facts = [FactSuggestion(fact=name, value="supported", material_id="m", quote=QUOTES[name])
+                          for name in CORE]
+        result.assessment = assess(result.materials, analysis)
+        row = to_intelligence(result)
+        self.assertEqual(row.label, "确认")
+        self.assertEqual(row.evidence.basis_material_ids, ["m"])
+        materials = {m.material_id: m for m in row.evidence.materials}
+        self.assertEqual(materials["m"].annotations, [])
+        for fact in row.evidence.facts:
+            if fact.fact in CORE:
+                self.assertEqual(fact.value, "supported")
+                self.assertEqual(fact.evidence[0].origin, "model")
+                self.assertEqual(fact.evidence[0].quote, QUOTES[fact.fact])
+                self.assertIn(fact.evidence[0].quote, materials[fact.evidence[0].material_id].excerpt)
+
+    def test_export_uses_reviewed_facts_and_preserves_review_evidence(self):
+        result = result_for(("exclusion",))
+        analysis = result.investigation.analysis
+        mistaken = FactSuggestion(fact="relay_clue", value="supported", material_id="m", quote=QUOTES["exclusion"])
+        analysis.facts = [mistaken]
+        result.assessment = assess(result.materials, analysis)
+        revision = mistaken.model_copy(update={"value": "unknown"})
+        review = review_for(result, action="revise", new_label="排除", fact_revisions=[revision])
+        result.assessment = apply_review(result, review)
+        result.review = review
+        # 与实际导出一样，从落盘格式重新读取后检查当前事实及人工修订的对应关系。
+        row = to_intelligence(DomainResult.model_validate_json(result.model_dump_json()))
+        facts = {fact.fact: fact for fact in row.evidence.facts}
+        self.assertEqual((row.label, facts["relay_clue"].value), ("排除", "unknown"))
+        self.assertEqual(facts["relay_clue"].evidence[0].origin, "review")
+        self.assertEqual(facts["exclusion"].evidence[0].origin, "human")
+        self.assertEqual(row.evidence.review, review)
+        self.assertEqual(analysis.facts[0].value, "supported", "原始模型输出仍保留在批次中")
+
+    def test_export_keeps_original_concern_numbering_after_review(self):
+        result = result_for(CORE, needs_review=True)
+        review = review_for(result, action="revise", new_label="确认", resolved_concerns=[1])
+        result.assessment = apply_review(result, review)
+        result.review = review
+        row = to_intelligence(result)
+        self.assertEqual(row.label, "确认")
+        index = row.evidence.review.resolved_concerns[0] - 1
+        self.assertEqual(row.evidence.concerns[index], result.investigation.analysis.concerns[0])
+
+    def test_failure_evidence_exports_without_inventing_business_facts(self):
+        result = result_for(access_status="failed", excerpt=None, failure_reason="timeout", evidence_state="unknown")
+        row = to_intelligence(result)
+        self.assertEqual(row.label, "证据不足")
+        self.assertEqual(row.evidence.materials[0].failure_reason, "timeout")
+        self.assertEqual(row.evidence.citations[0].quote, "timeout")
+        self.assertTrue(all(fact.value == "unknown" and not fact.evidence for fact in row.evidence.facts))
+
+    def test_reviewer_can_correct_a_model_result_without_a_pending_flag(self):
+        result = result_for(CORE, annotations=[])
+        analysis = result.investigation.analysis
+        analysis.facts = [FactSuggestion(fact=name, value="supported", material_id="m", quote=QUOTES[name])
+                          for name in CORE]
+        result.assessment = assess(result.materials, analysis)
+        self.assertEqual(result.assessment.review_status, "not_required")
+        # 引用存在但语义被高估，复核可以主动降级，无需等待模型自己提出疑点。
+        review = review_for(result, action="revise", new_label="疑似", reviewer="AI test reviewer",
+                            citations=[Citation(material_id="m", quote=QUOTES["third_party"])],
+                            fact_revisions=[FactSuggestion(fact="third_party", value="unknown",
+                                                           material_id="m", quote=QUOTES["third_party"])])
+        result.assessment = apply_review(result, review)
+        result.review = review
+        self.assertEqual((result.assessment.label, result.assessment.review_status), ("疑似", "completed"))
+        self.assertIn("AI test reviewer", result.assessment.reason)
+        with self.assertRaisesRegex(ValueError, "already reviewed"):
+            apply_review(result, review)

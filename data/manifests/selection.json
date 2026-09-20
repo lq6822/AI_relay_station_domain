@@ -1,0 +1,1223 @@
+[
+  {
+    "domain": "gptgod.cloud",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| gptgod     | 0.6R 一刀                            | OpenAI + gpt-4o-all逆向      | https://gptgod.cloud/    |"
+        ]
+      },
+      {
+        "source_id": "home-gptgod-cloud",
+        "quotes": [
+          "Shell API 提供全新UI和更全面的管理功能，打造你的一站式 AI 平台\nShell API\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "yunwu.ai",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| yunwu     | 1R 一刀                            | 全面的模型支持      | https://yunwu.ai/   |"
+        ]
+      },
+      {
+        "source_id": "home-yunwu-ai",
+        "quotes": [
+          "YUNWU.AI (云雾 API) - 专为开发者打造的终极 AI API 中转站。通过一个高速、稳定、统一的接口，轻松调用所有主流大模型。\nYUNWU.AI (云雾 API) - 高速、稳定的 AI API 中转站 - 云雾 API\n您需要启用 JavaScript 来运行此应用。"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api1.zhtec.xyz",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| zhtec      | 0.5R 一刀(svip)，0.6R 一刀(普通)     | OpenAI + Claude              | https://api1.zhtec.xyz/ |"
+        ]
+      },
+      {
+        "source_id": "home-api1-zhtec-xyz",
+        "quotes": [
+          "Shell API 提供全新UI和更全面的管理功能，打造你的一站式 AI 平台\nShell API\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "chienapi.top",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| chienapi   | 1R 一刀，官转 2R 一刀                | OpenAI                       | http://chienapi.top/    |"
+        ]
+      },
+      {
+        "source_id": "home-chienapi-top"
+      }
+    ]
+  },
+  {
+    "domain": "35.aigcbest.top",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| 35-aigcbest| AZ 1.5R 一刀，官转更贵              | OpenAI                       | https://35.aigcbest.top/|"
+        ]
+      },
+      {
+        "source_id": "home-35-aigcbest-top",
+        "quotes": [
+          "钱多多 API - OpenAI 兼容的大模型中转\n钱多多 API 提供 OpenAI 兼容接口，聚合多家大模型，支持分组计费。访问 api2.aigcbest.top。"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "new.xjai.cc",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| xjai-new   | az分组 0.9R 一刀                     | OpenAI                       | https://new.xjai.cc/    |"
+        ]
+      },
+      {
+        "source_id": "home-new-xjai-cc",
+        "quotes": [
+          "New API\nUnified AI API gateway and admin dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.bltcy.ai",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| bltcy      | az 1元 一刀，官转 2.5元              | OpenAI                       | https://api.bltcy.ai/   |"
+        ]
+      },
+      {
+        "source_id": "home-api-bltcy-ai",
+        "quotes": [
+          "柏拉图AI | 高效的AI模型API中转api供应商，全网最低价，性价比最高 \n柏拉图次元API专注于提供优质的OpenAI、Claude、Midjourney、Suno、Luma等API接入服务。轻松集成先进的AI模型至您的产品，通过我们的API综合管理平台，实现无缝整合与智能负载均衡。我们的API解决方案可靠且易用，帮助您升级产品与服务，解决风控问题，无需担心额度过期或封号风险。每日可承接300万刀以上，提供卓越的并发处理能力与全球专线优化，极大降低接入成本与使用难度。完美兼容各平台接口协议，适用于翻译、辅助写作、代码顾问等多种应用场景。选择柏拉图次元AI，享受简单且经济高效的生成式AI API服务。\n柏拉图AI_API中转站\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "www.gptapi.us",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| gptapi     | 4o-mini模型 1R 一刀，其他高价        | OpenAI                       | https://www.gptapi.us/  |"
+        ]
+      },
+      {
+        "source_id": "home-www-gptapi-us",
+        "quotes": [
+          "Do Not Sell or Share My Personal Information"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "xeduapi.com",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| xeduapi    | 3.18R 一刀                           | OpenAI                       | https://xeduapi.com/    |"
+        ]
+      },
+      {
+        "source_id": "home-xeduapi-com",
+        "quotes": [
+          "New API\nUnified AI API gateway and admin dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.tomchat.fun",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| tomchat    | 0.5R 一刀（4o-mini 价格贵）           | OpenAI                       | https://api.tomchat.fun/|"
+        ]
+      },
+      {
+        "source_id": "home-api-tomchat-fun",
+        "quotes": [
+          "This domain is for sale\nRe-visit the page to contact the owner.\nThis domain is for sale\nContact the Owner\nName\nEmail\nMessage\nWebsite\nSend"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.v3.cm",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| v3         | 2R 一刀                              | OpenAI                       | https://api.v3.cm/      |"
+        ]
+      },
+      {
+        "source_id": "home-api-v3-cm",
+        "quotes": [
+          "VAPI-v3 api提供稳定可靠的Openai API服务，支持chatgpt-全系列、deepseek、gemini api、grok、claude4.6、doubao、qwen、midjourney、suno、luma、claude、kling、runway等上百种模型！\nV-API - 为您提供稳定可靠的Openai ChatGPT、Gemini、Claude、Deepseek、Grok、openclaw等API直连中转服务！\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.ephone.ai",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| ephone     | 1R 一刀                              | OpenAI                       | https://api.ephone.ai/  |"
+        ]
+      },
+      {
+        "source_id": "home-api-ephone-ai",
+        "quotes": [
+          "ePhone AI\n我们是一个面向开发者的 AI 模型 API 中转与聚合平台，支持 OpenAI、Claude、Gemini、DeepSeek、GLM 等多家大模型，兼容官方 API 协议。一键切换模型与厂商，统一鉴权与计费，提供低于官方的调用价格、免费额度和示例代码，帮助个人和企业快速接入 AI 能力、降低使用成本。"
+        ],
+        "subject_relation": "uncertain"
+      }
+    ]
+  },
+  {
+    "domain": "api.nekoapi.com",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| nekoapi    | 1.5R-2R 一刀                         | OpenAI + Claude              | https://api.nekoapi.com/|"
+        ]
+      },
+      {
+        "source_id": "home-api-nekoapi-com",
+        "quotes": [
+          "New API\nUnified AI API gateway and admin dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "go.sbgpt.site",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| sbgpt      | az无o1分组 0.4R 一刀                 | OpenAI                       | https://go.sbgpt.site/  |"
+        ]
+      },
+      {
+        "source_id": "home-go-sbgpt-site",
+        "quotes": [
+          "OpenAI 接口聚合管理，支持多种渠道包括 Azure，可用于二次分发管理 key，仅单可执行文件，已打包好 Docker 镜像，一键部署，开箱即用\nNew API\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "www.ggwk1.online",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| ggwk1      | 1R 一刀，az分组 0.6R 一刀，claude 0.8R | OpenAI + Claude + Gemini     | https://www.ggwk1.online/|"
+        ]
+      },
+      {
+        "source_id": "home-www-ggwk1-online",
+        "quotes": [
+          "ggwk homepage replica",
+          "ggwk1 API",
+          "一个密钥，多种模型，为每个 AI 工作流提供可靠访问。",
+          "使用一个熟悉的 API 密钥和端点，稳定访问 Claude 模型。",
+          "通过一个网关，将 Gemini 系列与其他模型统一使用。",
+          "通过灵活的上游路由保持流量畅通。"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.openai-ch.top",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| GalaxyAPI  | 1R 一刀                              | OpenAI                       | https://api.openai-ch.top/|"
+        ]
+      },
+      {
+        "source_id": "home-api-openai-ch-top",
+        "quotes": [
+          "New API\nUnified AI API gateway and admin dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "oneapi.paintbot.top",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| paintbot   | 0.5R 一刀                            | OpenAI + Claude + Gemini     | https://oneapi.paintbot.top/|"
+        ]
+      },
+      {
+        "source_id": "home-oneapi-paintbot-top"
+      }
+    ]
+  },
+  {
+    "domain": "api.chatfire.cn",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| chatfire   | 1R 一刀（特价分组 0.5R）             | OpenAI + Claude + 国产AI + 图片 + 视频 | https://api.chatfire.cn/|"
+        ]
+      },
+      {
+        "source_id": "home-api-chatfire-cn",
+        "quotes": [
+          "OpenAI 接口聚合管理，支持多种渠道包括 OpenAI,Azure,Claude,Midjourney,Suno,Luma,Runway,Kling,Gemini,Flux,Udio 可用于二次分发管理 key\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.aabao.top",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| aabao      | 0.8R 一刀（az 0.3R）                 | OpenAI + Claude + Gemini     | https://api.aabao.top/   |"
+        ]
+      },
+      {
+        "source_id": "home-api-aabao-top",
+        "quotes": [
+          "404 Not Found\nFailure is the first step to success."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "opus.gptuu.com",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| gptuu      | 1R 一刀                              | OpenAI + Claude + Gemini     | https://opus.gptuu.com/  |"
+        ]
+      },
+      {
+        "source_id": "home-opus-gptuu-com"
+      }
+    ]
+  },
+  {
+    "domain": "open.api.gu28.top",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| boneapi    | 1R 一刀，az分组 0.8R                 | OpenAI + Claude + Gemini     | https://open.api.gu28.top/|"
+        ]
+      },
+      {
+        "source_id": "home-open-api-gu28-top"
+      }
+    ]
+  },
+  {
+    "domain": "api.yuegle.com",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| YuegleAPI  | 0.6R 一刀                            | Claude + Gemini + ChatGPT-4o | https://api.yuegle.com/  |"
+        ]
+      },
+      {
+        "source_id": "home-api-yuegle-com",
+        "quotes": [
+          "Yuegle API\nOpenAI 接口聚合管理，我们致力于提供优质的API接入服务，专注Claude、Gemini、ChatGPT、Grok、DeepSeek大模型API源头，价格低至0.3元一刀，让您可以轻松集成先进的AI模型至您的产品和服务。\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "cnapi.kksj.org",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| kksj       | 0.9R 一刀                            | OpenAI + Claude + Gemini     | https://cnapi.kksj.org/  |"
+        ]
+      },
+      {
+        "source_id": "home-cnapi-kksj-org",
+        "quotes": [
+          "KKSJ API\nKKSJ AI API gateway and admin dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.gptoai.cc",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| ShawnAPI   | 0.95R 一刀                           | OpenAI                       | https://api.gptoai.cc/  |"
+        ]
+      },
+      {
+        "source_id": "home-api-gptoai-cc",
+        "quotes": [
+          "最新@网址\n@\n最新\n@\n网址\n当前访问人数过多，请验证密码\n✕\n@\n确认\n💡 输入\n@网站名\n直达官网, 如\n@baidu\n🔑 点击获取密码\nHOT\n输入密码访问最新资源链接\n🤖 每日更新\n⭐ 收藏\n📤 分享\n🔄 刷新\n📌 保存"
+        ],
+        "subject_relation": "uncertain"
+      }
+    ]
+  },
+  {
+    "domain": "kfcv50.link",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| KFCV50API  | 0.2R 一刀 (az部分)，0.8R 一刀 (az全模型) | OpenAI + Claude              | https://kfcv50.link/     |"
+        ]
+      },
+      {
+        "source_id": "home-kfcv50-link",
+        "quotes": [
+          "恭喜你！找到了全网最稳定的100%官方Enterprise企业级中转绘图 : KFC V50 API\nKFC V50 API\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.nio.gs",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| Nio        | 1R 一刀                              | OpenAI + Claude + Gemini + 其他模型 | https://api.nio.gs/     |"
+        ]
+      },
+      {
+        "source_id": "home-api-nio-gs",
+        "quotes": [
+          "Nio API - 品牌升级公告\n🚀 Nio API 品牌升级\n为了提供更稳定、更极致的服务体验，\n我们的管理面板已全面迁移至新域名：\n*.newapi.gs\n前往新版控制台\n💡 升级须知：\n全面支持泛域名：\n为了防止域名频繁被墙，新站已开启泛域名解析，\n二级域名可以改为您喜欢的任意前缀\n（例如：\napi.newapi.gs\n、\nchat.newapi.gs\n、\n10086.newapi.gs\n等），均可正常对接。\n老接口绝不断供：\n原 API 接口 (\napi.nio.gs/v1/...\n) 依然保持 100% 畅通，您的现有业务和代码无需任何修改即可继续运行。"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.gueai.com",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| GueAi      | az分组 0.5R 一刀                     | OpenAI + Claude              | https://api.gueai.com/  |"
+        ]
+      },
+      {
+        "source_id": "home-api-gueai-com"
+      }
+    ]
+  },
+  {
+    "domain": "chatapi.onechats.top",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| OneChats   | 2R 一刀                              | OpenAI + Claude + Gemini     | https://chatapi.onechats.top/|"
+        ]
+      },
+      {
+        "source_id": "home-chatapi-onechats-top",
+        "quotes": [
+          "New API\nUnified AI API gateway and admin dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "apipro.maynor1024.live",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| MaynorAPI  | 2R 一刀                              | OpenAI + Claude + Gemini     | https://apipro.maynor1024.live/|"
+        ]
+      },
+      {
+        "source_id": "home-apipro-maynor1024-live",
+        "quotes": [
+          "提供高质量的AI接口服务，安全稳定、低延迟、高并发的企业级解决方案。支持多种AI模型，价格优惠，专业可靠。\n首页 - Maynor API | OpenAI-Compatible AI Gateway\n您需要启用 JavaScript 来运行此应用。"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "azapi.com.cn",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| azapi      | 春节活动 0.3R 一刀，日常 az 0.8R 一刀 | OpenAI + Claude + Gemini     | https://azapi.com.cn/   |"
+        ]
+      },
+      {
+        "source_id": "home-azapi-com-cn",
+        "quotes": [
+          "OpenAI 接口聚合管理，支持多种渠道包括 OpenAI,Azure,Claude,Midjourney,Suno,Luma,Runway,Kling,Gemini,Flux,Udio 可用于二次分发管理 key\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "www.openai-labs.com",
+    "discovery_source": "https://raw.githubusercontent.com/mn-api/awesome-ai-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:29.611217+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-mnapi",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "API中转站列表",
+          "| openaiLabs | az 0.5R 一刀，纯OpenAI 2.5R 一刀     | OpenAI + Claude + Gemini     | https://www.openai-labs.com/|"
+        ]
+      },
+      {
+        "source_id": "home-www-openai-labs-com",
+        "quotes": [
+          "AI实验室,令牌管理与用量统计的一站式 API 服务。\nAi实验室\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.rcouyi.com",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟢 [No.1-API](https://api.rcouyi.com) | aggregator |"
+        ]
+      },
+      {
+        "source_id": "home-api-rcouyi-com",
+        "quotes": [
+          "No.1‑API 专注于为开发者提供稳定高速的一站式大语言模型 API 中转服务，支持 、Anthropic Claude、Midjourney、Google Gemini、阿里云百炼、腾讯混元等主流 LLM，统一鉴权、灵活计费、智能负载均衡，助你低成本接入多模型 AI 能力。\nNo.1‑API — 一站式大模型 API 聚合与中转平台\nYou need to enable JavaScript to run this app."
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "uiuiapi.com",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟢 [UiUiAPI](https://uiuiapi.com) | official-relay |"
+        ]
+      },
+      {
+        "source_id": "home-uiuiapi-com",
+        "quotes": [
+          "UIUIAPI 提供企业级 AI 模型聚合网关与 API 服务平台，支持 OpenAI、Claude、Gemini、DeepSeek、Midjourney、Suno 等多模型统一接入、兼容调用、额度管理与备用线路。一个 API Key，即可高效接入多种 AI 能力。",
+          "控制台主入口",
+          "备用访问入口"
+        ],
+        "links": [
+          "https://api.uiuihao.com/",
+          "https://api1.uiuiapi.com/"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "dmxapi.cn",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟡 [DMXAPI](https://dmxapi.cn) | mixed |"
+        ]
+      },
+      {
+        "source_id": "home-dmxapi-cn",
+        "quotes": [
+          "DMXAPI官网：中国人工智能AI多模态大模型API聚合平台",
+          "支持300+顶尖AI模型（OpenAI, Claude, Gemini、DeepSeek、Qwen等）",
+          "DMX 取自“大模型”的拼音首字母，而 DMXAPI 是由 LangChain 中文网提供的智能API聚合服务平台",
+          "注册 > 充值 > 使用"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "mkeai.com",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟡 [MKEAI](https://mkeai.com) | mixed |"
+        ]
+      },
+      {
+        "source_id": "home-mkeai-com"
+      }
+    ]
+  },
+  {
+    "domain": "www.closeai-asia.com",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟢 [CloseAI](https://www.closeai-asia.com) | official-relay |"
+        ]
+      },
+      {
+        "source_id": "home-www-closeai-asia-com",
+        "quotes": [
+          "CloseAI - 亚洲规模最大的企业级AI中转平台",
+          "支持OpenAI API、Anthropic(Claude) API、Gemini API等多种AI接口中转服务",
+          "提供与OpenAI完全一致的兼容接口，完全兼容OpenAI生态内的所有产品，只需替换域名即可用于各类开源社区的代码框架"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "www.xuanshuapi.com",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟡 [玄枢API (XuanShu API)](https://www.xuanshuapi.com) | mixed |"
+        ]
+      },
+      {
+        "source_id": "home-www-xuanshuapi-com",
+        "quotes": [
+          "玄枢API｜一个入口接入 Claude Code、Codex、Gemini CLI",
+          "面向个人开发者、技术团队和企业，把 Claude Code、Codex、Gemini CLI 接到同一个 API 入口，实时查看模型与价格，按量或包月使用，注册即得 1 余额。",
+          "先复制配置，再用控制台生成的 API Key 发起第一次调用。",
+          "请求会按模型匹配当前可用路径；遇到可重试的局部故障时，系统可以切换候选账号"
+        ],
+        "links": [
+          "https://www.xuanshuapi.com/v1"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "teamorouter.com",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟡 [TeamoRouter](https://teamorouter.com) | mixed |"
+        ]
+      },
+      {
+        "source_id": "home-teamorouter-com",
+        "quotes": [
+          "TeamoRouter",
+          "The LLM router",
+          "Get API key",
+          "OpenAI API",
+          "Anthropic API",
+          "Gemini API",
+          "Smart Routing",
+          "Auto Fallbacks",
+          "One Bill",
+          "api.teamorouter.com"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "wawazz.xyz",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟡 [wawazz.xyz](https://wawazz.xyz) | mixed |"
+        ]
+      },
+      {
+        "source_id": "home-wawazz-xyz",
+        "quotes": [
+          "WAWA ZZ API - AI API Gateway\nW\nWAWA ZZ API"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api.wappkit.com",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟡 [Wappkit API](https://api.wappkit.com) | mixed |"
+        ]
+      },
+      {
+        "source_id": "home-api-wappkit-com",
+        "quotes": [
+          "New API\nUnified AI API gateway and admin dashboard.\nWappkit API - OpenAI-compatible AI API Gateway，支持 Cursor、Cline、Dify、Cherry Studio 等工具接入，统一管理模型、API Key、额度和请求日志。"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "openrouter.ai",
+    "discovery_source": "https://github.com/howardpen9/awesome-ai-api-proxy",
+    "discovery_method": "公开中转目录发现后核对官网",
+    "evidence": [
+      {
+        "source_id": "openrouter-home",
+        "quotes": [
+          "Get your API key",
+          "Fall back to other providers when one goes down.",
+          "anthropic/claude-opus-5",
+          "© 2026 OpenRouter, Inc"
+        ]
+      },
+      {
+        "source_id": "openrouter-docs",
+        "quotes": [
+          "OpenRouter gives you access to hundreds of AI models through a single API endpoint."
+        ],
+        "links": [
+          "https://openrouter.ai/api/v1/chat/completions"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "www.atlascloud.ai",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟢 [Atlas Cloud](https://www.atlascloud.ai) | aggregator |"
+        ]
+      },
+      {
+        "source_id": "home-www-atlascloud-ai"
+      }
+    ]
+  },
+  {
+    "domain": "relaydance.com",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟢 [Relaydance](https://relaydance.com) | mixed |"
+        ]
+      },
+      {
+        "source_id": "home-relaydance-com",
+        "quotes": [
+          "RelayDance",
+          "Get API Key",
+          "Video and image models from leading AI labs",
+          "ByteDance (Seedance)",
+          "OpenAI (gpt-image-2)"
+        ],
+        "links": [
+          "https://relaydance.com/v1/video/generations"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "litellm.ai",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟢 [LiteLLM](https://litellm.ai) | gateway-oss |"
+        ]
+      },
+      {
+        "source_id": "home-litellm-ai",
+        "quotes": [
+          "LiteLLM — Open-Source AI Gateway & LLM Proxy",
+          "Self-hosted and air-gapped.",
+          "Self-host in minutes. No credit card."
+        ],
+        "subject_relation": "uncertain"
+      }
+    ]
+  },
+  {
+    "domain": "helicone.ai",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟢 [Helicone](https://helicone.ai) | observability |"
+        ]
+      },
+      {
+        "source_id": "home-helicone-ai",
+        "quotes": [
+          "Helicone / AI Gateway & LLM Observability",
+          "to route, debug, and analyze their applications.",
+          "OpenAI",
+          "Anthropic",
+          "Try for free"
+        ],
+        "subject_relation": "uncertain"
+      }
+    ]
+  },
+  {
+    "domain": "aimlapi.com",
+    "discovery_source": "https://raw.githubusercontent.com/howardpen9/awesome-ai-api-proxy/main/README.md",
+    "discovery_method": "public_directory_candidate",
+    "discovered_at": "2026-09-20T09:26:32.533924+00:00",
+    "evidence": [
+      {
+        "source_id": "directory-howard",
+        "source_kind": "secondary",
+        "evidence_state": "unknown",
+        "quotes": [
+          "Awesome AI API Proxy",
+          "| 🟢 [AIMLAPI](https://aimlapi.com) | aggregator |"
+        ]
+      },
+      {
+        "source_id": "home-aimlapi-com",
+        "quotes": [
+          "Latest AI Models in One API: GPT, Gemini, Claude & 1000+ Models",
+          "Get API Key",
+          "AIMLAPI"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "aihubmix.com",
+    "discovery_source": "https://aihubmix.com/",
+    "discovery_method": "公开检索 AI 中转 API 聚合后核对官网",
+    "evidence": [
+      {
+        "source_id": "aihubmix-home",
+        "quotes": [
+          "Connect to ChatGPT, Claude, Gemini, DeepSeek, Doubao, Qwen and more through a single endpoint.",
+          "Get API Key",
+          "© 2023 - 2026 AIHubMix, LLC"
+        ],
+        "links": [
+          "https://aihubmix.com/v1/chat/completions"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "api-docs.deepseek.com",
+    "discovery_source": "https://api-docs.deepseek.com/zh-cn/",
+    "discovery_method": "选取官方模型文档作为兼容 API 边界对照",
+    "evidence": [
+      {
+        "source_id": "deepseek-docs",
+        "quotes": [
+          "DeepSeek API 文档",
+          "DeepSeek API 使用与 OpenAI/Anthropic 兼容的 API 格式",
+          "deepseek-flash"
+        ],
+        "links": [
+          "https://api.deepseek.com"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "docs.newapi.ai",
+    "discovery_source": "https://docs.newapi.ai/zh/docs",
+    "discovery_method": "public_site_or_document",
+    "discovered_at": "2026-09-20T09:42:02.790639+00:00",
+    "evidence": [
+      {
+        "source_id": "newapi-docs",
+        "quotes": [
+          "快速开始 | New API 文档",
+          "New API 是开源的 AI 网关与大模型接口管理系统。",
+          "选择 Docker、面板或集群部署，启动你的 New API。",
+          "添加上游服务商，配置密钥与可用模型。"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "www.cherryai.com",
+    "discovery_source": "https://www.cherryai.com/download",
+    "discovery_method": "public_site_or_document",
+    "discovered_at": "2026-09-20T09:42:05.921145+00:00",
+    "evidence": [
+      {
+        "source_id": "cherry-download",
+        "quotes": [
+          "Cherry Studio is an open-source, free, and powerful AI desktop client.",
+          "runs on Windows/macOS/Linux, stores data locally"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "www.aiapipk.com",
+    "discovery_source": "https://www.aiapipk.com/",
+    "discovery_method": "public_site_or_document",
+    "discovered_at": "2026-09-20T09:42:10.540877+00:00",
+    "evidence": [
+      {
+        "source_id": "aiapipk-home",
+        "quotes": [
+          "中转站竞技场是一个针对AI中转站性价比可用性对比的工具网站，提供各大AI中转服务商的实时可用性、成功率、性价比等数据对比，帮助用户选择最适合的AI服务。",
+          "AI中转服务商列表",
+          "访问官网"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "next.ohmygpt.com",
+    "discovery_source": "https://next.ohmygpt.com/",
+    "discovery_method": "public_site_or_document",
+    "discovered_at": "2026-09-20T09:42:13.764268+00:00",
+    "evidence": [
+      {
+        "source_id": "ohmygpt-home",
+        "quotes": [
+          "OhMyGPT",
+          "GPT-4, Claude, Gemini, and DeepSeek are unified under a single API.",
+          "Get Started",
+          "DogeNet LLC"
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "302.ai",
+    "discovery_source": "https://302.ai/",
+    "discovery_method": "public_site_or_document",
+    "discovered_at": "2026-09-20T09:42:20.630494+00:00",
+    "evidence": [
+      {
+        "source_id": "302-home",
+        "quotes": [
+          "企业级AI资源平台 - 302.AI | 按用量付费，全模型API接入，应用在线使用",
+          "302.AI是按用量付费的企业级AI平台，提供最新图像、视频、音频及语言模型API，一站式接入无需多供应商付费。",
+          "API超市",
+          "OpenAI",
+          "Anthropic",
+          "Gemini"
+        ]
+      },
+      {
+        "source_id": "302-help",
+        "quotes": [
+          "我们也将我们产品中所使用到的API全部开放给开发者，全部API按需付费",
+          "未来会持续的接入市面上最新最好用的AI品牌，将它们以API的形式提供给你们。",
+          "最近修改: 2024-10-14"
+        ],
+        "links": [
+          "https://302.ai"
+        ],
+        "evidence_state": "historical"
+      }
+    ]
+  }
+]

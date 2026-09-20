@@ -1,0 +1,12 @@
+[
+  {"domain":"openrouter.ai", "discovery_source":"https://github.com/howardpen9/awesome-ai-api-proxy", "discovery_method":"公开中转目录发现后核对官网", "evidence":[
+    {"source_id":"openrouter-home", "quotes":["Get your API key","Fall back to other providers when one goes down.","anthropic/claude-opus-5","© 2026 OpenRouter, Inc"]},
+    {"source_id":"openrouter-docs", "quotes":["OpenRouter gives you access to hundreds of AI models through a single API endpoint."], "links":["https://openrouter.ai/api/v1/chat/completions"]}
+  ]},
+  {"domain":"aihubmix.com", "discovery_source":"https://aihubmix.com/", "discovery_method":"公开检索 AI 中转 API 聚合后核对官网", "evidence":[
+    {"source_id":"aihubmix-home", "quotes":["Connect to ChatGPT, Claude, Gemini, DeepSeek, Doubao, Qwen and more through a single endpoint.","Get API Key","© 2023 - 2026 AIHubMix, LLC"], "links":["https://aihubmix.com/v1/chat/completions"]}
+  ]},
+  {"domain":"api-docs.deepseek.com", "discovery_source":"https://api-docs.deepseek.com/zh-cn/", "discovery_method":"选取官方模型文档作为兼容 API 边界对照", "evidence":[
+    {"source_id":"deepseek-docs", "quotes":["DeepSeek API 文档","DeepSeek API 使用与 OpenAI/Anthropic 兼容的 API 格式","deepseek-flash"], "links":["https://api.deepseek.com"]}
+  ]}
+]

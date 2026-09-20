@@ -1,0 +1,8 @@
+{
+  "base_url": "https://api.deepseek.com",
+  "api_key": "",
+  "model": "deepseek-flash",
+  "max_requests": 5,
+  "timeout_seconds": 60,
+  "max_tokens": 4096
+}

@@ -1,0 +1,359 @@
+[
+  {
+    "domain": "gptgod.cloud",
+    "url": "https://gptgod.cloud/",
+    "source_id": "home-gptgod-cloud",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| gptgod     | 0.6R 一刀                            | OpenAI + gpt-4o-all逆向      | https://gptgod.cloud/    |"
+  },
+  {
+    "domain": "yunwu.ai",
+    "url": "https://yunwu.ai/",
+    "source_id": "home-yunwu-ai",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| yunwu     | 1R 一刀                            | 全面的模型支持      | https://yunwu.ai/   |"
+  },
+  {
+    "domain": "api1.zhtec.xyz",
+    "url": "https://api1.zhtec.xyz/",
+    "source_id": "home-api1-zhtec-xyz",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| zhtec      | 0.5R 一刀(svip)，0.6R 一刀(普通)     | OpenAI + Claude              | https://api1.zhtec.xyz/ |"
+  },
+  {
+    "domain": "chienapi.top",
+    "url": "http://chienapi.top/",
+    "source_id": "home-chienapi-top",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| chienapi   | 1R 一刀，官转 2R 一刀                | OpenAI                       | http://chienapi.top/    |"
+  },
+  {
+    "domain": "35.aigcbest.top",
+    "url": "https://35.aigcbest.top/",
+    "source_id": "home-35-aigcbest-top",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| 35-aigcbest| AZ 1.5R 一刀，官转更贵              | OpenAI                       | https://35.aigcbest.top/|"
+  },
+  {
+    "domain": "new.xjai.cc",
+    "url": "https://new.xjai.cc/",
+    "source_id": "home-new-xjai-cc",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| xjai-new   | az分组 0.9R 一刀                     | OpenAI                       | https://new.xjai.cc/    |"
+  },
+  {
+    "domain": "api.bltcy.ai",
+    "url": "https://api.bltcy.ai/",
+    "source_id": "home-api-bltcy-ai",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| bltcy      | az 1元 一刀，官转 2.5元              | OpenAI                       | https://api.bltcy.ai/   |"
+  },
+  {
+    "domain": "www.gptapi.us",
+    "url": "https://www.gptapi.us/",
+    "source_id": "home-www-gptapi-us",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| gptapi     | 4o-mini模型 1R 一刀，其他高价        | OpenAI                       | https://www.gptapi.us/  |"
+  },
+  {
+    "domain": "xeduapi.com",
+    "url": "https://xeduapi.com/",
+    "source_id": "home-xeduapi-com",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| xeduapi    | 3.18R 一刀                           | OpenAI                       | https://xeduapi.com/    |"
+  },
+  {
+    "domain": "api.tomchat.fun",
+    "url": "https://api.tomchat.fun/",
+    "source_id": "home-api-tomchat-fun",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| tomchat    | 0.5R 一刀（4o-mini 价格贵）           | OpenAI                       | https://api.tomchat.fun/|"
+  },
+  {
+    "domain": "api.v3.cm",
+    "url": "https://api.v3.cm/",
+    "source_id": "home-api-v3-cm",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| v3         | 2R 一刀                              | OpenAI                       | https://api.v3.cm/      |"
+  },
+  {
+    "domain": "api.ephone.ai",
+    "url": "https://api.ephone.ai/",
+    "source_id": "home-api-ephone-ai",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| ephone     | 1R 一刀                              | OpenAI                       | https://api.ephone.ai/  |"
+  },
+  {
+    "domain": "api.nekoapi.com",
+    "url": "https://api.nekoapi.com/",
+    "source_id": "home-api-nekoapi-com",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| nekoapi    | 1.5R-2R 一刀                         | OpenAI + Claude              | https://api.nekoapi.com/|"
+  },
+  {
+    "domain": "go.sbgpt.site",
+    "url": "https://go.sbgpt.site/",
+    "source_id": "home-go-sbgpt-site",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| sbgpt      | az无o1分组 0.4R 一刀                 | OpenAI                       | https://go.sbgpt.site/  |"
+  },
+  {
+    "domain": "www.ggwk1.online",
+    "url": "https://www.ggwk1.online/",
+    "source_id": "home-www-ggwk1-online",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| ggwk1      | 1R 一刀，az分组 0.6R 一刀，claude 0.8R | OpenAI + Claude + Gemini     | https://www.ggwk1.online/|"
+  },
+  {
+    "domain": "api.openai-ch.top",
+    "url": "https://api.openai-ch.top/",
+    "source_id": "home-api-openai-ch-top",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| GalaxyAPI  | 1R 一刀                              | OpenAI                       | https://api.openai-ch.top/|"
+  },
+  {
+    "domain": "oneapi.paintbot.top",
+    "url": "https://oneapi.paintbot.top/",
+    "source_id": "home-oneapi-paintbot-top",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| paintbot   | 0.5R 一刀                            | OpenAI + Claude + Gemini     | https://oneapi.paintbot.top/|"
+  },
+  {
+    "domain": "api.chatfire.cn",
+    "url": "https://api.chatfire.cn/",
+    "source_id": "home-api-chatfire-cn",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| chatfire   | 1R 一刀（特价分组 0.5R）             | OpenAI + Claude + 国产AI + 图片 + 视频 | https://api.chatfire.cn/|"
+  },
+  {
+    "domain": "api.aabao.top",
+    "url": "https://api.aabao.top/",
+    "source_id": "home-api-aabao-top",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| aabao      | 0.8R 一刀（az 0.3R）                 | OpenAI + Claude + Gemini     | https://api.aabao.top/   |"
+  },
+  {
+    "domain": "opus.gptuu.com",
+    "url": "https://opus.gptuu.com/",
+    "source_id": "home-opus-gptuu-com",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| gptuu      | 1R 一刀                              | OpenAI + Claude + Gemini     | https://opus.gptuu.com/  |"
+  },
+  {
+    "domain": "open.api.gu28.top",
+    "url": "https://open.api.gu28.top/",
+    "source_id": "home-open-api-gu28-top",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| boneapi    | 1R 一刀，az分组 0.8R                 | OpenAI + Claude + Gemini     | https://open.api.gu28.top/|"
+  },
+  {
+    "domain": "api.yuegle.com",
+    "url": "https://api.yuegle.com/",
+    "source_id": "home-api-yuegle-com",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| YuegleAPI  | 0.6R 一刀                            | Claude + Gemini + ChatGPT-4o | https://api.yuegle.com/  |"
+  },
+  {
+    "domain": "cnapi.kksj.org",
+    "url": "https://cnapi.kksj.org/",
+    "source_id": "home-cnapi-kksj-org",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| kksj       | 0.9R 一刀                            | OpenAI + Claude + Gemini     | https://cnapi.kksj.org/  |"
+  },
+  {
+    "domain": "api.gptoai.cc",
+    "url": "https://api.gptoai.cc/",
+    "source_id": "home-api-gptoai-cc",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| ShawnAPI   | 0.95R 一刀                           | OpenAI                       | https://api.gptoai.cc/  |"
+  },
+  {
+    "domain": "kfcv50.link",
+    "url": "https://kfcv50.link/",
+    "source_id": "home-kfcv50-link",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| KFCV50API  | 0.2R 一刀 (az部分)，0.8R 一刀 (az全模型) | OpenAI + Claude              | https://kfcv50.link/     |"
+  },
+  {
+    "domain": "api.nio.gs",
+    "url": "https://api.nio.gs/",
+    "source_id": "home-api-nio-gs",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| Nio        | 1R 一刀                              | OpenAI + Claude + Gemini + 其他模型 | https://api.nio.gs/     |"
+  },
+  {
+    "domain": "api.gueai.com",
+    "url": "https://api.gueai.com/",
+    "source_id": "home-api-gueai-com",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| GueAi      | az分组 0.5R 一刀                     | OpenAI + Claude              | https://api.gueai.com/  |"
+  },
+  {
+    "domain": "chatapi.onechats.top",
+    "url": "https://chatapi.onechats.top/",
+    "source_id": "home-chatapi-onechats-top",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| OneChats   | 2R 一刀                              | OpenAI + Claude + Gemini     | https://chatapi.onechats.top/|"
+  },
+  {
+    "domain": "apipro.maynor1024.live",
+    "url": "https://apipro.maynor1024.live/",
+    "source_id": "home-apipro-maynor1024-live",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| MaynorAPI  | 2R 一刀                              | OpenAI + Claude + Gemini     | https://apipro.maynor1024.live/|"
+  },
+  {
+    "domain": "azapi.com.cn",
+    "url": "https://azapi.com.cn/",
+    "source_id": "home-azapi-com-cn",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| azapi      | 春节活动 0.3R 一刀，日常 az 0.8R 一刀 | OpenAI + Claude + Gemini     | https://azapi.com.cn/   |"
+  },
+  {
+    "domain": "www.openai-labs.com",
+    "url": "https://www.openai-labs.com/",
+    "source_id": "home-www-openai-labs-com",
+    "directory_id": "directory-mnapi",
+    "directory_quote": "| openaiLabs | az 0.5R 一刀，纯OpenAI 2.5R 一刀     | OpenAI + Claude + Gemini     | https://www.openai-labs.com/|"
+  },
+  {
+    "domain": "api.rcouyi.com",
+    "url": "https://api.rcouyi.com",
+    "source_id": "home-api-rcouyi-com",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟢 [No.1-API](https://api.rcouyi.com) | aggregator | Alipay/WeChat | active · 2026-05-26 | One-stop aggregation + relay platform. |"
+  },
+  {
+    "domain": "uiuiapi.com",
+    "url": "https://uiuiapi.com",
+    "source_id": "home-uiuiapi-com",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟢 [UiUiAPI](https://uiuiapi.com) | official-relay | Alipay/WeChat | active · 2026-06-07 | Claims official channels + official multipliers; rare quantified discount. Public new-api /api/pricing on api1 subdomain. |"
+  },
+  {
+    "domain": "dmxapi.cn",
+    "url": "https://dmxapi.cn",
+    "source_id": "home-dmxapi-cn",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟡 [DMXAPI](https://dmxapi.cn) | mixed | Alipay/WeChat | unverified · ⚠ no-entity | Listed in community sources; homepage not independently verified. |"
+  },
+  {
+    "domain": "mkeai.com",
+    "url": "https://mkeai.com",
+    "source_id": "home-mkeai-com",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟡 [MKEAI](https://mkeai.com) | mixed | Alipay/WeChat | unverified · ⚠ no-entity | Community-forum + relay hybrid; pushes DeepSeek heavily. |"
+  },
+  {
+    "domain": "www.closeai-asia.com",
+    "url": "https://www.closeai-asia.com",
+    "source_id": "home-www-closeai-asia-com",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟢 [CloseAI](https://www.closeai-asia.com) | official-relay | Alipay/WeChat/Invoice | active · 2026-05-26 · registered | Issues enterprise invoices; self-describes as largest enterprise-grade relay in Asia. |"
+  },
+  {
+    "domain": "www.xuanshuapi.com",
+    "url": "https://www.xuanshuapi.com",
+    "source_id": "home-www-xuanshuapi-com",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟡 [玄枢API (XuanShu API)](https://www.xuanshuapi.com) | mixed | Invoice | unverified · ⚠ operator-self | Serves Anthropic Messages and Gemini v1beta at the root host and OpenAI Responses and Chat Completions under /v1; model visibility and pricing are per-key and per-group, set in the console. |"
+  },
+  {
+    "domain": "teamorouter.com",
+    "url": "https://teamorouter.com",
+    "source_id": "home-teamorouter-com",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟡 [TeamoRouter](https://teamorouter.com) | mixed | Alipay/WeChat | unverified · ⚠ operator-self | OpenAI / Anthropic / Gemini-compatible gateway; Alipay and WeChat; operator-claimed multi-upstream routing and Claude Code / Codex setup guides. |"
+  },
+  {
+    "domain": "wawazz.xyz",
+    "url": "https://wawazz.xyz",
+    "source_id": "home-wawazz-xyz",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟡 [wawazz.xyz](https://wawazz.xyz) | mixed | WeChat | unverified · ⚠ operator-self, cheap-trap | OpenAI-compatible API at /v1; WeChat pay; operator-claimed GPT pricing as low as 0.07x official. |"
+  },
+  {
+    "domain": "api.wappkit.com",
+    "url": "https://api.wappkit.com",
+    "source_id": "home-api-wappkit-com",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟡 [Wappkit API](https://api.wappkit.com) | mixed | — | unverified · ⚠ operator-self | new-api OpenAI-compatible gateway with public /api/pricing; listed groups are Codex/Claude-Code pools (no flat default group). |"
+  },
+  {
+    "domain": "openrouter.ai",
+    "url": "https://openrouter.ai",
+    "source_id": "openrouter-home",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟢 [OpenRouter](https://openrouter.ai) | aggregator | Card/Crypto | Official-authorized routing, ~5% markup. ARR reportedly $5M (2025-05) to ~$50M (early 2026). Public JSON API at /api/v1/models with normalized per-token pricing. |"
+  },
+  {
+    "domain": "www.atlascloud.ai",
+    "url": "https://www.atlascloud.ai",
+    "source_id": "home-www-atlascloud-ai",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟢 [Atlas Cloud](https://www.atlascloud.ai) | aggregator | Card | Multi-modal aggregator; image/video heavy (Grok Imagine, Kling, ByteDance, Vidu). Public OpenAI-compatible /v1/models endpoint exposes per-token pricing including cache-read. |"
+  },
+  {
+    "domain": "relaydance.com",
+    "url": "https://relaydance.com",
+    "source_id": "home-relaydance-com",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟢 [Relaydance](https://relaydance.com) | mixed | Alipay/WeChat/Card | 新-API (Calcium-Ion fork) operator focused on xAI Grok + ByteDance Doubao. Public /api/pricing returns ratio-based pricing (model_ratio × $2 / 1M tokens). |"
+  },
+  {
+    "domain": "litellm.ai",
+    "url": "https://litellm.ai",
+    "source_id": "home-litellm-ai",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟢 [LiteLLM](https://litellm.ai) | gateway-oss | — | Open-source gateway + enterprise tier. Self-hosted; not retail. |"
+  },
+  {
+    "domain": "helicone.ai",
+    "url": "https://helicone.ai",
+    "source_id": "home-helicone-ai",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟢 [Helicone](https://helicone.ai) | observability | — | LLM observability gateway; logging/analytics focus. |"
+  },
+  {
+    "domain": "aimlapi.com",
+    "url": "https://aimlapi.com",
+    "source_id": "home-aimlapi-com",
+    "directory_id": "directory-howard",
+    "directory_quote": "| 🟢 [AIMLAPI](https://aimlapi.com) | aggregator | Card/Crypto | Prepaid from $20; crypto support implies payment-friction workaround. |"
+  },
+  {
+    "domain": "aihubmix.com",
+    "url": "https://aihubmix.com/",
+    "source_id": "aihubmix-home"
+  },
+  {
+    "domain": "api-docs.deepseek.com",
+    "url": "https://api-docs.deepseek.com/zh-cn/",
+    "source_id": "deepseek-docs"
+  },
+  {
+    "domain": "docs.newapi.ai",
+    "url": "https://docs.newapi.ai/zh/docs",
+    "source_id": "newapi-docs"
+  },
+  {
+    "domain": "www.cherryai.com",
+    "url": "https://www.cherryai.com/download",
+    "source_id": "cherry-download"
+  },
+  {
+    "domain": "www.aiapipk.com",
+    "url": "https://www.aiapipk.com/",
+    "source_id": "aiapipk-home"
+  },
+  {
+    "domain": "next.ohmygpt.com",
+    "url": "https://next.ohmygpt.com/",
+    "source_id": "ohmygpt-home"
+  },
+  {
+    "domain": "302.ai",
+    "url": "https://302.ai/",
+    "source_id": "302-home"
+  }
+]

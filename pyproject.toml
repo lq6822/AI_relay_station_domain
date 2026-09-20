@@ -9,10 +9,11 @@ description = "Evidence-led, single-agent AI relay domain intelligence CLI"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-  "anthropic>=0.120,<2",
+  "openai>=2,<3",
   "pydantic>=2.13,<3",
   "idna>=3.11,<4",
   "tldextract>=5.3,<6",
+  "requests>=2.32,<3",
 ]
 
 [project.scripts]
@@ -22,4 +23,5 @@ relay-intel = "relay_intel.cli:main"
 packages = ["src/relay_intel"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src", "config", "tests", "README.md", "pyproject.toml", "uv.lock"]
+include = ["src", "config/ai.example.json", "tests", "README.md", "pyproject.toml", "uv.lock"]
+exclude = ["config/ai.json"]

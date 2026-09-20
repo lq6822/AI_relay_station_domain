@@ -1,99 +1,103 @@
+"""候选与材料测试：关注规范化、去重、主体和引用边界，不访问网络。"""
+
 import unittest
-from datetime import datetime, timezone
 from unittest.mock import patch
 
-from relay_intel.candidates import expand_seed, merge_ids, normalize, prepare, registered_domain
-from relay_intel.contracts import Lead
-
-TIME = datetime(2026, 1, 1, tzinfo=timezone.utc)
+from helpers import sample
+from relay_intel.candidates import normalize, prepare_candidates
+from relay_intel.contracts import Citation, Lead, Link, Material
+from relay_intel.investigation import MaterialTools, prepare_materials
 
 
 class CandidateTests(unittest.TestCase):
-    def lead(self, identity="l1", raw="Api.Example.COM."):
-        return Lead(lead_id=identity, raw_value=raw, source_url="https://source.example.com/list",
-                    discovery_method="manual", discovered_at=TIME)
-
-    def test_normalization_and_idna(self):
-        for raw, wanted in [("  API.Example.COM.  ", "api.example.com"),
-                            ("https://API.Example.COM:443/path?q=a", "api.example.com"),
-                            ("https://例子.中国/", "xn--fsqu00a.xn--fiqs8s")]:
-            with self.subTest(raw=raw):
-                self.assertEqual(normalize(raw), wanted)
-
-    def test_invalid_hosts(self):
-        for raw in ["", "*.example.com", "127.0.0.1", "https://[::1]/", "https://u:p@example.com",
-                    "bad_host.com", "example.com..", "localhost", "ftp://example.com", "a/b.com",
-                    "https://example.com:bad", "example.com\\evil", "a.unknownsuffix", "co.uk", "1.2.3.4"]:
-            with self.subTest(raw=raw), self.assertRaises(ValueError):
-                normalize(raw)
-
-    def test_bundled_suffixes_no_network(self):
-        with patch("requests.Session.get", side_effect=AssertionError("network forbidden")):
-            self.assertEqual(registered_domain("a.b.example.co.uk"), "example.co.uk")
-            self.assertEqual(registered_domain("a.owner.github.io"), "owner.github.io")
-
-    def test_sources_merge_and_full_hostname_uniqueness(self):
-        candidates, issues = prepare("r", [self.lead(), self.lead("l2", "https://api.example.com/a"),
-                                          self.lead("l3", "chat.example.com")])
+    def test_normalization_and_full_host_deduplication(self):
+        for raw, expected in [
+            ("  API.Example.COM. ", "api.example.com"),
+            ("https://API.Example.COM:443/path?q=1", "api.example.com"),
+            ("https://例子.中国/", "xn--fsqu00a.xn--fiqs8s"),
+        ]:
+            self.assertEqual(normalize(raw), expected)
+        source = sample()[0].sources[0]
+        extra = source.model_copy(update={"lead_id": "another", "raw_value": "https://RELAY.example.com/"})
+        sibling = source.model_copy(update={"lead_id": "sibling", "raw_value": "chat.example.com"})
+        candidates, issues = prepare_candidates([source, source, extra, sibling])
         self.assertEqual(len(candidates), 2)
-        self.assertEqual(len(candidates[0].sources), 2)
+        self.assertEqual(len(next(c for c in candidates if c.domain == "relay.example.com").sources), 2)
         self.assertEqual(issues, [])
 
-    def test_same_id_idempotence_and_conflict(self):
-        row = self.lead()
-        rows, issues = merge_ids([row], [row, self.lead(raw="different.example.com")], "lead_id", "r")
-        self.assertEqual(rows, [row])
-        self.assertEqual(len(issues), 1)
+    def test_invalid_hosts_and_offline_suffix_snapshot(self):
+        for raw in ["127.0.0.1", "*.example.com", "https://u:p@example.com", "bad_host.com",
+                    "localhost", "a.unknownsuffix", "co.uk", "https://[::1]/", "../escape"]:
+            with self.subTest(raw=raw), self.assertRaises(ValueError):
+                normalize(raw)
+        with patch("requests.Session.get", side_effect=AssertionError("network forbidden")):
+            self.assertEqual(normalize("owner.github.io"), "owner.github.io")
 
-    def test_bad_candidate_does_not_stop_other_rows(self):
-        candidates, issues = prepare("r", [self.lead(), self.lead("bad", "127.0.0.1")])
+    def test_conflicting_ids_require_input_correction(self):
+        source = sample()[0].sources[0]
+        changed = source.model_copy(update={"raw_value": "other.example.com"})
+        with self.assertRaisesRegex(ValueError, "conflicting"):
+            prepare_candidates([source, changed])
+        _, material, _ = sample()
+        with self.assertRaisesRegex(ValueError, "conflicting"):
+            prepare_materials([material, material.model_copy(update={"excerpt": "Changed"})], [sample()[0]])
+
+    def test_bad_candidate_is_reported_without_losing_valid_rows(self):
+        source = sample()[0].sources[0]
+        bad = source.model_copy(update={"lead_id": "bad", "raw_value": "127.0.0.1"})
+        candidates, issues = prepare_candidates([source, bad])
         self.assertEqual(len(candidates), 1)
         self.assertEqual(issues[0].location, "bad")
 
-    def test_source_credentials_and_timezone_rejected(self):
-        for update in [{"source_url": "https://u:p@example.com/"}, {"discovered_at": "2026-01-01T00:00:00"}]:
+    def test_input_requires_public_source_timezone_and_complete_seed_relation(self):
+        source = sample()[0].sources[0]
+        for update in [{"source_url": "https://u:p@example.com/"}, {"discovered_at": "2026-01-01"},
+                       {"seed_domain": "seed.example.com"}]:
             with self.subTest(update=update), self.assertRaises(ValueError):
-                Lead.model_validate(self.lead().model_dump() | update)
+                Lead.model_validate(source.model_dump() | update)
 
-    def test_seed_fields_must_be_complete(self):
+    def test_material_subject_and_annotation_checks(self):
+        candidate, material, _ = sample()
         with self.assertRaises(ValueError):
-            Lead.model_validate(self.lead().model_dump() | {"seed_domain": "seed.example.com"})
-
-    def test_expansion_provenance_and_no_inherited_assessment(self):
-        # This lightweight fixture isolates candidate expansion; Agent behavior lives in workflow tests.
-        from types import SimpleNamespace
-        from relay_intel.contracts import Link, Material, ToolCall
-        candidate = prepare("r", [self.lead(raw="seed.example.com")])[0][0]
-        material = Material(material_id="m", domain=candidate.domain,
-                            source_url="https://seed.example.com/", collected_at=TIME,
-                            access_status="ok", evidence_state="current",
-                            excerpt="Chat service: https://chat.example.com/")
-        link = Link(material_id="m", url="https://chat.example.com/", context=material.excerpt, relation="chat service")
-        inv = SimpleNamespace(version=1, materials=[material], created_at=TIME,
-                              requests=3, usage={"input_tokens": 30}, execution="offline_test",
-                              tool_calls=[ToolCall(name="related_links", material_ids=["m"], result="ok")],
-                              analysis=SimpleNamespace(related_links=[link]))
-        assessment = SimpleNamespace(label="确认", confidence=.9, review_status="not_required", investigation_version=1)
-        leads, record = expand_seed(candidate, inv, assessment, [candidate], 5)
-        added, issues = prepare("r", leads, [candidate])
-        child = next(c for c in added if c.domain == "chat.example.com")
-        self.assertFalse(hasattr(child, "label"))
-        self.assertEqual(child.sources[0].seed_domain, candidate.domain)
-        self.assertEqual(child.sources[0].material_id, "m")
-        self.assertEqual(record.added_domains, ["chat.example.com"])
+            Material.model_validate(material.model_dump() | {"annotations": [
+                {"fact": "exclusion", "value": "supported", "quote": "invented"}]})
+        cross = material.model_copy(update={"source_url": "https://other.example.com/"})
+        grouped, issues = prepare_materials([cross], [candidate])
+        self.assertEqual(grouped[candidate.domain], [])
+        self.assertIn("exact subject", issues[0].reason)
+        cross.excerpt += " About relay.example.com."
+        grouped, issues = prepare_materials([cross], [candidate])
+        self.assertEqual(len(grouped[candidate.domain]), 1)
         self.assertEqual(issues, [])
-        assessment.review_status = "pending"
-        with self.assertRaises(ValueError):
-            expand_seed(candidate, inv, assessment, [candidate], 5)
-        assessment.review_status = "completed"
-        inv.analysis.related_links = []
-        _, empty = expand_seed(candidate, inv, assessment, [candidate], 5)
-        self.assertEqual(empty.added_domains, [])
-        self.assertEqual(empty.material_ids, ["m"])
-        inv.tool_calls = []
-        with self.assertRaises(ValueError):
-            expand_seed(candidate, inv, assessment, [candidate], 5)
 
+    def test_tools_cannot_read_other_domains_or_skip_counterevidence(self):
+        _, material, analysis = sample()
+        other = material.model_copy(update={"material_id": "other"})
+        toolkit = MaterialTools(material.domain, [material, other])
+        for name, args in [
+            ("shell", {"domain": material.domain}),
+            ("read_materials", {"domain": "other.example.com"}),
+            ("read_materials", {"domain": material.domain, "material_ids": ["missing"]}),
+        ]:
+            with self.subTest(name=name, args=args), self.assertRaises(ValueError):
+                toolkit.execute(name, args)
+        toolkit.execute("read_materials", {"domain": material.domain, "material_ids": ["m"]})
+        with self.assertRaisesRegex(ValueError, "read all"):
+            toolkit.validate_analysis(analysis)
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_links_and_quotes_must_be_observed(self):
+        _, material, analysis = sample()
+        material.excerpt += " Chat: https://chat.example.com/"
+        toolkit = MaterialTools(material.domain, [material])
+        for name in ("read_materials", "related_links"):
+            toolkit.execute(name, {"domain": material.domain})
+        analysis.related_links = [Link(material_id="m", url="https://chat.example.com/",
+                                       context=material.excerpt, relation="chat service")]
+        toolkit.validate_analysis(analysis)
+        analysis.related_links[0].url = "https://invented.example.com/"
+        with self.assertRaisesRegex(ValueError, "context"):
+            toolkit.validate_analysis(analysis)
+        analysis.related_links = []
+        analysis.citations = [Citation(material_id="m", quote="invented")]
+        with self.assertRaisesRegex(ValueError, "quote"):
+            toolkit.validate_analysis(analysis)

@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-09-20T10:08:20.450932+00:00",
+  "offline_tests": 56,
+  "offline_tests_passed": true,
+  "intelligence_schema_rows": 55,
+  "recomputed_assessments": 55,
+  "source_material_quote_checks": 104,
+  "replay_input_domains": 55,
+  "replay_input_issues": 0,
+  "local_document_links_valid": true,
+  "key_found_in_delivery": false,
+  "command": "python -m unittest discover -s tests",
+  "git_diff_whitespace_check_passed": true
+}

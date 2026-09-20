@@ -1,140 +1,171 @@
-# AI 中转站域名情报原型
+# AI 中转站域名情报：面试原型
 
-按 plan.md 的 Python 单机 CLI、人工公开取证、单 Agent 分析、程序校验、按需人工复核和 JSON 交付路线开发。
-模型按用户最新指定固定为 `deepseek-v4-flash`，经现有中转的 Anthropic Messages 协议调用。
-API 地址使用 `ANTHROPIC_BASE_URL`，密钥使用 `ANTHROPIC_API_KEY`；没有默认官方地址或备用模型。
+这是围绕面试题实现的 Python 命令行原型：公开取证、一个材料分析 Agent、统一判定规则、必要复核和 JSON 导出。代码按顺序组织业务，不依赖数据库或后台服务。
 
-本轮是研发。真实模型验收、50 个真实域名、实际种子扩展、六个真实案例和限页方案尚未完成。
-默认测试完全离线，使用 unittest 和 AsyncMock；测试数据不能计为真实情报。
+当前交付已完成 **55 个域名、54 个注册域**的真实分析：确认 15、疑似 35、排除 4、证据不足 1。基于 13 个确认种子整理公开关联链接，发现 2 个新候选并分别完成取证与分析。56 项离线测试通过。40 条复核记录明确标注为 AI 复核，没有独立人工标注评估。
 
-## 安装与测试
+## 先看这几个文件
 
-需要 Python 3.12 和 uv。源码工作目录即本项目根目录。
+- [汇报文档](delivery/REPORT.md)：五章 Markdown，覆盖题目要求的六项内容。
+- [域名情报](delivery/intelligence.json)：全部 55 条结果和可定位证据。
+- [统计与批次对应](delivery/summary.json)：每个域名采用哪个实际批次、标签分布和调用统计。
+- [关联扩展](delivery/expansions.json)：种子、原文链接关系及新增候选。
+- [采集记录](delivery/collection.json)：实际访问时间、HTTP 状态、最终地址和正文摘要值。
+- [复核记录](delivery/reviews.jsonl)：修改内容、实际复核者与理由。原始模型分析保存在 `delivery/batches/`。
+
+七个必需字段为 `domain、label、confidence、evidence、reason、discovery_source、last_verified`。`evidence.facts` 是当前判定采用的事实，通过 `material_id` 和 `quote` 对应原文及来源；原始模型分析与后续复核分别保留。
+
+## 1. 安装并填写 AI 配置
+
+需要 Python 3.12 和 uv，在项目根目录执行：
 
 ```powershell
 uv sync --locked
 uv run --no-sync python -m unittest discover -s tests
-uv run --no-sync relay-intel --help
 ```
 
-本开发环境也可使用 `.tools/Scripts/uv.exe`；`.tools` 只用于本地安装工具，不是运行依赖。
-依赖只有一个锁文件 `uv.lock`。安装后域名公共后缀只使用 tldextract 随包快照，不运行时下载。
-
-## 运行
-
-仅人工采集公开资料，不自动抓取候选站点。输入保存为 UTF-8 JSONL，每行一个对象，放在 `data/inputs/`。
-以下样例是合成数据，用于说明字段，不能作为真实取证。阶段文件不可手改。
-
-`leads.jsonl`：
-
-```json
-{"lead_id":"lead-1","raw_value":"https://relay.example.com/","source_url":"https://directory.example.com/list","discovery_method":"manual_public_source","discovered_at":"2026-09-19T08:00:00+08:00"}
-```
-
-`materials.jsonl`：
-
-```json
-{"material_id":"m-1","domain":"relay.example.com","source_url":"https://relay.example.com/about","collected_at":"2026-09-19T09:00:00+08:00","access_status":"ok","evidence_state":"current","excerpt":"合成演示：我们是独立第三方，向用户提供模型 API，并将请求转发到外部模型提供方。","annotations":[{"fact":"third_party","value":"supported","quote":"独立第三方"},{"fact":"model_access","value":"supported","quote":"向用户提供模型 API"},{"fact":"upstream_proxy","value":"supported","quote":"将请求转发到外部模型提供方"}],"source_kind":"direct","subject_relation":"exact"}
-```
-
-失败材料使用 `access_status=failed/blocked` 与真实 `failure_reason`，省略 excerpt 和 annotations。
-`published_at` 不知道时省略；所有时间必须有时区。`evidence_state` 为 current/historical/unknown。
-source_kind=secondary 表示转述；subject_relation=uncertain 表示主体关联不明确，不能确认当前主机名。
-跨站来源若声明 exact，片段中必须能定位当前完整主机名；仅兄弟子域或同注册域不算证据。
-人工负责核验材料与主机名关系、时效及事实真实性，程序只验证引用及基本条件。
+AI 配置就是项目内的 **`config/ai.json`**。首次拉取代码没有这个文件时，复制模板：
 
 ```powershell
-# 在本机设置现有中转地址和密钥后运行；不要将密钥写入源码或输入材料。
-relay-intel run --run-id demo --leads data/inputs/leads.jsonl --materials data/inputs/materials.jsonl --synthetic
-relay-intel review --run-id demo --actions data/inputs/reviews.jsonl
-relay-intel expand --run-id demo
-relay-intel export --run-id demo
+Copy-Item config/ai.example.json config/ai.json
 ```
 
-真实资料运行时省略 `--synthetic`；同一批次不能切换合成标记。保留域名样例自动视为合成。
-`run` 接收新增材料时只重做受影响主机。没有材料或模型调用失败的对象保留为未完成，不伪造证据不足。
-新发现域名先进入 candidates，人工补 leads/materials 后重新 run，独立分析，不继承种子结论。
-
-## 判断与复核
-
-确认需要第三方身份、用户模型访问、上游代理关系，且无影响判断的未解决反证。疑似需要具体中转线索。
-排除需要明确非目标证据；证据不足必须有实际调查。兼容 API、模型名、模板本身不证明中转。
-公开声明不能写成后台转发实测，服务标签不表示恶意或违法。
-
-confidence 是所选标签的证据支持程度：未定=null（仅草稿）、暂定=0.55、有限支持=0.75、充分支持=0.90。
-依据为 engineering_default，方法 label_evidence_grade_v1，未经统计校准，不等同于目标概率或正确率。
-复核由影响判断的缺失、冲突、时效或业务不明确触发，不按标签或分值强制触发。
-
-`reviews.jsonl` 样例（版本和时间必须对应当前待复核判断）：
+已经配置过时直接编辑现有文件，不要重新复制覆盖。填写示例：
 
 ```json
-{"run_id":"demo","domain":"relay.example.com","assessment_version":1,"action":"accept","reviewer":"人工复核人","reviewed_at":"2026-09-20T10:00:00+08:00","reason":"核对引用后接受有依据的保守结论，未知事实继续保留。","citations":[{"material_id":"m-1","quote":"独立第三方"}]}
+{
+  "base_url": "https://api.deepseek.com",
+  "api_key": "填入自己的 DeepSeek API Key",
+  "model": "deepseek-flash",
+  "max_requests": 5,
+  "timeout_seconds": 60,
+  "max_tokens": 4096
+}
 ```
 
-revise 还需 `new_label`，可用 `fact_revisions` 提交带 material_id/fact/value/quote 的人工解释，明确替换该事实的模型解释。
-原调查、人工标注和复核记录全部保留；不允许用新解释静默覆盖原人工反证。程序重新计算标签和置信度。
-改正原人工标注需建立新批次；新增真实观察用新 material_id。重复动作不重复增加版本。
+替换 Key 只需修改 `api_key`，不需要环境变量。程序通过 OpenAI SDK 调用配置地址下的 `/chat/completions`；使用 DeepSeek 工具调用、JSON 输出及关闭思考模式的参数。实际验证使用的模型是 `deepseek-flash`，接口格式参考 [DeepSeek 官方文档](https://api-docs.deepseek.com/zh-cn/)。
 
-## 接入约束
+`ai.json` 正常保存在本项目中并在运行时读取，只是被 Git 忽略，Key 也不写入结果。所谓本地配置指的就是这个文件；调用 AI 时 Key 会发送给配置的 AI 接口做认证，候选网站不会收到该 Key。
 
-AsyncAnthropic 关闭 SDK 自动重试，每次域名分析最多 5 次请求、每次 60 秒、校验错误最多修正 1 次且计入总上限。
-客户端发送两个只读工具，以及 `output_config.format` JSON Schema，再用 Pydantic 严格验证结果及引用。
-现有中转须实际支持该字段；不能因 Messages 协议兼容就假定具备服务端结构化约束。
-实际接入前用少量真实材料验证工具调用、结构化结果及用量，不用离线测试冒充真实模型验收。
-官方接口参数参考：[Anthropic Messages 与结构化输出](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)。
+## 2. 直接用交付输入重新运行
 
-网页和材料中的指令只当数据，工具只读取本域允许的材料；没有 Shell、任意文件、网络取证或发布工具。
-人工输入前须清除密钥和私人信息，仅提交必要公开材料。错误日志不回显原始 SDK HTTP 响应。
+交付已提供整理后的真实输入，不需要先重新访问所有网站：
 
-## 保存、交付与持续生产
+```powershell
+uv run --no-sync relay-intel run --run-id verify-001 --leads delivery/inputs/leads.jsonl --materials delivery/inputs/materials.jsonl
+```
 
-`runs/<run_id>/` 保存 manifest、candidates、investigations、assessments、issues 和 exports。
-同 ID 同内容重复导入不增加记录，同 ID 异内容拒绝；配置、模型、提示词改变须新批次。
-源码变化使原复用失效。单域输入、配置、源码、提示词以及引用调查版本均一致才可复用。
-模型失败也在 Investigation 中保存本次材料、调用摘要和失败原因，analysis 留空且不生成业务判断。
-新调查使旧复核失效，导出只考虑当前版本，禁止回退发布旧判断。
+`run_id` 必须未使用。每次新分析、补证或修改规则使用新批次；固定材料重跑不等于重新验证网站当前状态。`delivery/inputs/` 为独立重跑统一了记录编号，原编号仍保存在情报和原批次中。
 
-写入采用单进程锁和临时文件原子替换。导出前标记未完成，两个导出文件均保存成功才标记完成；
-这不是跨文件事务。读取交付结果须检查 manifest.export_completed 和 summary 的 intelligence 摘要。
-保存失败时重新 export 整组文件，不把残留文件当成本次成功结果。
+结果保存在 `runs/verify-001/batch.json`。首次调用之前固定材料和模型配置，每处理完一个域名就保存。中断后执行：
 
-情报包含 domain/label/confidence/evidence/reason/discovery_source/last_verified 七字段。
-last_verified 来源于实际材料采集时间，重复分析、复核或导出不刷新。
-summary 明确列出数量、注册域覆盖、待复核、失败、扩展和交付缺项；不足 50 条或缺项时不宣布任务完成。
-案例及不超过 5 页的 `docs/submission/方案.docx` 留待真实生产后制作，不创建空占位文件。
+```powershell
+uv run --no-sync relay-intel resume --run-id verify-001
+```
 
-持续生产：人工补充公开线索及材料 → run → 按需 review → 一轮 expand → 独立补证 → export。
-不引入数据库、Web 服务、定时调度或多 Agent；E1/E2/E3 可选增强未实现。
+`resume` 只处理尚待分析的域名，已完成和已记录失败的域名不重复调用。它读取批次中的固定材料和配置，Key 则读取当前 `config/ai.json`，因此可以换 Key 后继续。地址、模型和调用限额发生变化时应新建批次。已记录的失败排除原因后，另建批次重新分析。
 
-## 排错
+模型每域最多 5 次请求，单次最多 60 秒；SDK 自动重试关闭。错误引用或格式仅允许一次修正。调用失败、拒答或校验不通过记录为分析失败，不生成业务标签。
 
-命令返回 0 表示操作完成，1 表示关键配置/存储错误，2 表示参数错误或业务结果仍有未完成项。
-先按 issues 的 domain/location/stage 定位，修改被拒绝的输入后重跑；已经导入的 ID 不可变更内容。
-锁残留时核对 `.writer.lock` 的进程是否退出后再人工清理，不自动删除活动锁。
-损坏文件、关键配置错误及保存失败停止相关操作，不继续覆盖有效文件。
-开发错误先定位到具体文件/函数，最小修改，运行该模块及直接受影响测试，再继续；交付前全量回归及 wheel 冒烟。
+## 3. 检查疑点并按需复核
 
-AI 编程工具实际用于契约、代码、离线测试和故障定位。运行时 Agent 的真实验收状态仍待 API 地址、密钥和真实小样本具备后确认。
+查看 `assessment.review_reasons` 和 `investigation.analysis.concerns`。模型提出疑点的结果会进入 `pending`，暂不进入正式情报；模型没有提出疑点的结果，也可以主动复核。复核同样必须提供逐字引用，不能直接指定一个标签绕过规则。
 
-## 本轮研发验证记录（2026-09-20）
+复核文件每行一条 JSON，实际示例可看 `delivery/reviews.jsonl`。自行复核时填写新的批次名、域名、时间与实际复核者，不能把旧批次意见原样提交给新批次。
 
-三个测试文件共 59 项离线用例。单元与流程回归覆盖四标签、必要复核、错误修正上限、工具越权、
-49/50 条计数边界、输入复用失效、材料 ID 冲突、旧复核失效及导出保存失败。
-独立虚拟环境按 uv.lock 的版本和哈希安装依赖，再安装 wheel，以隔离模式验证 run/review/expand/export：
-返回码依次为 2/0/0/2，导出 2 条合成记录、真实计数 0，两个复核路径及输出摘要检查通过。
-打包产物为 `dist/ai_relay_intel-0.1.0.tar.gz` 和 `dist/ai_relay_intel-0.1.0-py3-none-any.whl`。
+- `accept`：接受有依据的原保守标签，保留未知和未解决限制。
+- `revise`：修订事实或处理模型疑点，声明 `new_label`，由规则重新计算。
+- `fact_revisions`：替换指定事实的模型解释；不能覆盖原始人工反证。
+- `resolved_concerns`：已处理疑点的序号，从 1 开始，必须引用相关材料。
+- `reviewer`：写明实际复核者；AI 复核必须标明 AI。
 
-已复现并最小修复的业务缺陷：
+```powershell
+uv run --no-sync relay-intel review --run-id verify-001 --actions data/inputs/reviews.jsonl
+```
 
-| 文件与函数 | 原因 | 修复及复测 |
-| --- | --- | --- |
-| delivery.py / eligible | 只核对调查和判断之间的摘要，遗漏当前候选来源变化 | 核对候选、材料及配置摘要；流程回归通过 |
-| cli.py / analyze_domains | 模型失败只存 Issue，未保存已导入材料 | 保存失败 Investigation，保持材料 ID 不可变；重试与失败回归通过 |
-| investigation.py / MaterialTools.__init__ | 跨站材料的 exact 主体关联未检查 | 要求原文中可定位目标完整主机名；判断及流程回归通过 |
-| candidates.py / expand_seed | 扩展记录缺少模型调用和用量追溯 | 保存工具、次数、用量及执行类型；候选及流程回归通过 |
+每个结果只保存一次复核；相同意见重复提交会跳过。还需补材料或继续修订时创建新批次。程序验证引用存在和规则条件，语义判断仍需要核对来源。
 
-环境问题单独处理：Windows 系统临时目录权限导致 ensurepip 和部分测试无法执行，经授权后复测；
-依赖下载受沙箱网络限制，经授权生成锁文件并安装依赖。没有为这些环境问题增加业务兼容分支。
+本次交付中，目录时效未知、前端模板、跳转、软件文档等问题通过实际复核处理；没有把所有疑似强行升级为确认。
 
-尚未通过真实验收：S0 真实小样本与模型运行条件、S1 真实工具调用和结构化分析、S2 真实情报生产、S3 真实案例及限页方案。
-`ANTHROPIC_BASE_URL` 仍由用户确认后提供。结构化输出是否被现有中转实际支持，须在真实 API 冒烟中核验。
+## 4. 关联扩展与导出
+
+```powershell
+uv run --no-sync relay-intel expand --run-id verify-001
+uv run --no-sync relay-intel export --run-id verify-001
+```
+
+`expand` 仅整理完成必要复核的确认种子中实际观察到的 API、聊天或迁移链接。每个种子只整理一次，不递归、不自动继承标签，也不自动访问新站。新增线索写入 `runs/verify-001/expanded_leads.jsonl`；补充材料后另建批次分析。
+
+`export` 写入：
+
+- `runs/verify-001/exports/intelligence.json`：通过检查的四类标签记录。
+- `runs/verify-001/exports/summary.json`：数量、分布、扩展与未完成项。
+
+单批导出允许部分结果，成功返回只代表文件写完，必须检查 `unfinished`。需要汇总初始、重跑和扩展批次时使用：
+
+```powershell
+uv run --no-sync python scripts/export_delivery.py real-53-20260920 real-retry-20260920 real-correction-20260920 real-expanded-20260920 --output delivery
+```
+
+该命令适用于本次工作目录中的实际 `runs/`。汇总按列出的先后顺序选择每个域名最后一次结果；后一次失败不能退回旧成功。发现未完成、待复核、演示数据或不足 50 条时拒绝汇总。随附的 `delivery/batches/` 是本次原批次快照，查看已有交付不需要重新运行汇总。
+
+返回码：0 表示命令完成；1 表示整体配置、输入或文件错误；2 表示参数错误，或分析、复核、扩展仍有需要处理的事项。
+
+## 5. 更新公开材料
+
+采集和分类分成两步，避免网页抓取细节混入业务判定。
+
+```powershell
+uv run --no-sync python scripts/collect_sources.py data/manifests/initial.json --output data/research-next
+uv run --no-sync python scripts/collect_sources.py data/manifests/collection.json --output data/research-next
+```
+
+采集脚本顺序 GET，每次间隔 2 秒，设置 20 秒请求超时与 2 MB 上限。只保留可见文本、元描述和实际链接，不运行脚本。已有来源编号会跳过，因此重新采集使用新目录；失败也如实落盘。
+
+`selection.json` 指明目标、发现来源、所选原文和材料属性。旧摘录可能随网页或文本归一化方式变化失效，需要先核对新采集结果并更新选取内容，再执行：
+
+```powershell
+uv run --no-sync python scripts/build_inputs.py data/manifests/selection.json --research data/research-next --output data/inputs/next
+```
+
+`build_inputs.py` 不会悄悄用新内容替代旧引用，原文或链接找不到就报错。
+
+- `leads.jsonl`：发现值、发现网址、发现时间和发现方式。
+- `materials.jsonl`：材料编号、目标域名、来源网址、采集时间、原文或失败原因。
+- `source_kind`：自身公开说明为 `direct`，目录或转述为 `secondary`。
+- `evidence_state`：当前材料、历史材料或时效未知。刚刚抓到旧目录不代表目录内容已经验证为当前事实。
+- `subject_relation`：`exact` 或 `uncertain`；跨站 exact 材料必须出现目标完整主机名。
+- `annotations`：可选的人工预标注。本次实际输入为空，由 AI 提取并通过复核修订。
+
+本次用到的初始、采集、摘录及补充来源清单保存在 `data/manifests/`。完整网页提取内容位于本机被忽略的 `data/research/`；交付保留短证据和采集元数据。
+
+## 6. 从哪里读代码
+
+先读 `cli.py`，再读 `pipeline.py`。主线只有：
+
+```text
+读取线索和材料 → 整理候选 → 调用 Agent → 校验引用 → 判定 → 保存
+                                                  ↓
+                                             按需复核 → 导出
+```
+
+| 文件 | 职责 |
+| --- | --- |
+| `src/relay_intel/cli.py` | 参数解析、调用业务函数、打印状态 |
+| `src/relay_intel/pipeline.py` | 准备批次、顺序分析、逐域保存、复核和扩展 |
+| `src/relay_intel/agent.py` | DeepSeek 请求和两个本地只读工具的调用循环 |
+| `src/relay_intel/investigation.py` | 材料归属、引用、链接检查和事实合并 |
+| `src/relay_intel/assessment.py` | 五项事实含义、四标签、分档和复核重判 |
+| `src/relay_intel/candidates.py` | 域名规范化、去重与一轮关联候选整理 |
+| `src/relay_intel/contracts.py` | 输入、分析、复核、情报的数据结构 |
+| `src/relay_intel/workspace.py` | 配置读取、JSONL 输入和文件保存 |
+| `src/relay_intel/delivery.py` | 单批导出检查、七字段情报和统计 |
+| `scripts/` | 公开采集、摘录整理、交付批次汇总 |
+
+证据链为：`merge_facts` 合并事实 → `assess` 生成标签并保存实际依据 → `to_intelligence` 导出同一份依据。复核仍调用 `assess`，原始模型分析保持不变。
+
+确认需要当前主机的第三方身份、用户模型接入和上游关系都有证据；普通模型名、兼容协议、通用模板不能单独证明中转。明确的非目标证据可以排除。其余按具体线索判为疑似或证据不足。
+
+置信度是标签的证据分档（0.55 / 0.75 / 0.90），不是目标概率。`last_verified` 取支撑当前标签的材料时间；无关的新访问失败、重分析和导出不会刷新旧确认时间。公开业务说明也不等于后台转发实测。
+
+当前按单进程顺序执行；定期更新通过人工启动新批次完成。没有加入并发调度、数据库、缓存系统或多轮版本管理。
